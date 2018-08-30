@@ -1,4 +1,4 @@
-package com.example.alimjan.news.network.pojo;
+package com.example.alimjan.news.api.pojo;
 
 import com.google.gson.annotations.SerializedName;
 

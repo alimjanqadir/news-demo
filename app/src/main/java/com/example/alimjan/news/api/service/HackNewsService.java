@@ -1,6 +1,6 @@
-package com.example.alimjan.news.network.service;
+package com.example.alimjan.news.api.service;
 
-import com.example.alimjan.news.network.pojo.News;
+import com.example.alimjan.news.api.pojo.NewsResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,5 +13,5 @@ public interface HackNewsService {
      * @return The latest news.
      */
     @GET("search_by_date")
-    Call<News> getLatestNews();
+    Call<NewsResponse> getLatestNews();
 }

@@ -4,7 +4,7 @@
     android:id="@+id/news_detail_fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewsDetailActivity">
+    tools:context=".ui.activities.NewsDetailActivity">
 
 
 </android.support.constraint.ConstraintLayout>

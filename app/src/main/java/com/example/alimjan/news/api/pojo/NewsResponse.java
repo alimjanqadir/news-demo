@@ -1,4 +1,4 @@
-package com.example.alimjan.news.network.pojo;
+package com.example.alimjan.news.api.pojo;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("com.robohorse.robopojogenerator")
-public class News {
+public class NewsResponse {
 
     @SerializedName("hits")
     private List<HitsItem> hits;
@@ -54,11 +54,10 @@ public class News {
         return nbPages;
     }
 
-
     @Override
     public String toString() {
         return
-                "News{" +
+                "NewsResponse{" +
                         "hits = '" + hits + '\'' +
                         ",page = '" + page + '\'' +
                         ",params = '" + params + '\'' +

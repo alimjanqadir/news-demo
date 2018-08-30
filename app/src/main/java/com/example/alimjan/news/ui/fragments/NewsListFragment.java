@@ -1,5 +1,6 @@
-package com.example.alimjan.news.fragments;
+package com.example.alimjan.news.ui.fragments;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,13 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.alimjan.news.NewsDetailActivity;
+import com.example.alimjan.news.api.pojo.NewsResponse;
+import com.example.alimjan.news.ui.activities.NewsDetailActivity;
 import com.example.alimjan.news.R;
-import com.example.alimjan.news.adapters.NewsListRecyclerViewAdapter;
-import com.example.alimjan.news.data.News;
-import com.example.alimjan.news.network.ServiceGenerator;
-import com.example.alimjan.news.network.pojo.HitsItem;
-import com.example.alimjan.news.network.service.HackNewsService;
+import com.example.alimjan.news.ui.adapters.NewsListRecyclerViewAdapter;
+import com.example.alimjan.news.model.News;
+import com.example.alimjan.news.api.ServiceGenerator;
+import com.example.alimjan.news.api.pojo.HitsItem;
+import com.example.alimjan.news.api.service.HackNewsService;
+import com.example.alimjan.news.ui.viewmodels.NewsViewModel;
+import com.example.alimjan.news.ui.viewmodels.NewsViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,8 +62,10 @@ public class NewsListFragment extends Fragment implements NewsListRecyclerViewAd
             setupRecyclerView((RecyclerView) view);
         }
 
-        // Request data from api
-        requestNewsListData();
+        NewsViewModel newsViewModel = ViewModelProviders.of(this,new NewsViewModelFactory(getContext())).get(NewsViewModel.class);
+        newsViewModel.news.observe(this, news -> {
+            mAdapter.submitList(news);
+        });
 
         return view;
     }
@@ -87,23 +93,20 @@ public class NewsListFragment extends Fragment implements NewsListRecyclerViewAd
     }
 
 
-    private class NewsRequestCallBack implements Callback<com.example.alimjan.news.network.pojo.News> {
+    private class NewsRequestCallBack implements Callback<NewsResponse> {
         @Override
-        public void onResponse(Call<com.example.alimjan.news.network.pojo.News> call, Response<com.example.alimjan.news.network.pojo.News> response) {
+        public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
             if (response.isSuccessful()) {
                 List<News> newsList = new ArrayList<>();
-                com.example.alimjan.news.network.pojo.News news = response.body();
-                assert news != null;
-                for (HitsItem hitsItem : news.getHits()) {
-                    newsList.add(new News(hitsItem.getTitle() != null ? hitsItem.getTitle() : hitsItem.getStoryTitle(), hitsItem.getAuthor(), hitsItem.getCreatedAtI(), hitsItem.getStoryUrl()));
+                NewsResponse newsResponse = response.body();
+                for (HitsItem hitsItem : newsResponse.getHits()) {
+                    newsList.add(new News(0,hitsItem.getTitle() != null ? hitsItem.getTitle() : hitsItem.getStoryTitle(), hitsItem.getAuthor(), hitsItem.getCreatedAtI(), hitsItem.getStoryUrl()));
                 }
-
-                mAdapter.putData(newsList);
             }
         }
 
         @Override
-        public void onFailure(Call<com.example.alimjan.news.network.pojo.News> call, Throwable t) {
+        public void onFailure(Call<NewsResponse> call, Throwable t) {
             System.out.println("Error");
         }
     }

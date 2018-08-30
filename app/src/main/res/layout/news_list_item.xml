@@ -5,10 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="news"
-            type="com.example.alimjan.news.data.News" />
+            type="com.example.alimjan.news.model.News" />
 
     </data>
 
@@ -50,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{news.timeOffset}"
+            android:text="@{news.createdDate}"
             app:layout_constraintBaseline_toBaselineOf="@+id/author"
             app:layout_constraintStart_toEndOf="@+id/author"
             tools:text="@tools:sample/date/ddmmyy" />

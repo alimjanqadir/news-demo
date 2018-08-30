@@ -1,4 +1,4 @@
-package com.example.alimjan.news.fragments;
+package com.example.alimjan.news.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;

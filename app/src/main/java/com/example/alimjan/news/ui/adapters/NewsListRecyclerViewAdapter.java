@@ -1,30 +1,27 @@
-package com.example.alimjan.news.adapters;
+package com.example.alimjan.news.ui.adapters;
 
+import android.arch.paging.PagedListAdapter;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.example.alimjan.news.data.News;
+import com.example.alimjan.news.model.News;
 import com.example.alimjan.news.databinding.NewsListItemBinding;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
  * A RecyclerViewAdapter for NewsListFragment, uses {@link OnNewsItemClickListener} to notify
  * news click event to fragment.
  */
-public class NewsListRecyclerViewAdapter extends RecyclerView.Adapter<NewsListRecyclerViewAdapter.ViewHolder> {
-
-    // News data that showed on Recycleview.
-    private List<News> mData = new ArrayList<>();
+public class NewsListRecyclerViewAdapter extends PagedListAdapter<News, NewsListRecyclerViewAdapter.ViewHolder> {
 
     // A callback interface that is used to inform news item click event.
     private final OnNewsItemClickListener mNewsItemClickListener;
 
     public NewsListRecyclerViewAdapter(OnNewsItemClickListener newsItemClickListener) {
+        super(DIFF_CALLBACK);
         this.mNewsItemClickListener = newsItemClickListener;
     }
 
@@ -37,25 +34,8 @@ public class NewsListRecyclerViewAdapter extends RecyclerView.Adapter<NewsListRe
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-        holder.binding.setNews(mData.get(position));
-        holder.binding.getRoot().setOnClickListener(v -> {
-            mNewsItemClickListener.onNewsClick(mData.get(position));
-        });
-    }
-
-    @Override
-    public int getItemCount() {
-        return mData.size();
-    }
-
-    /**
-     * Puts data to a collection and notify adapter to change data.
-     *
-     * @param data news data from repository.
-     */
-    public void putData(List<News> data) {
-        this.mData.addAll(data);
-        notifyDataSetChanged();
+        holder.binding.setNews(getItem(position));
+        holder.binding.getRoot().setOnClickListener(v -> mNewsItemClickListener.onNewsClick(getItem(position)));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -74,4 +54,21 @@ public class NewsListRecyclerViewAdapter extends RecyclerView.Adapter<NewsListRe
     public interface OnNewsItemClickListener {
         void onNewsClick(News news);
     }
+
+    private static DiffUtil.ItemCallback<News> DIFF_CALLBACK =
+            new DiffUtil.ItemCallback<News>() {
+                // News details may have changed if reloaded from the database,
+                // but ID is fixed.
+                @Override
+                public boolean areItemsTheSame(News oldNews, News newNews) {
+                    return oldNews.getAid() == newNews.getAid();
+                }
+
+                @Override
+                public boolean areContentsTheSame(News oldNews,
+                                                  @NonNull News newNews) {
+                    return oldNews.equals(newNews);
+                }
+            };
+
 }
