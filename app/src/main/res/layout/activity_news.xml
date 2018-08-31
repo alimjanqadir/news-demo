@@ -12,7 +12,6 @@
         android:name="com.example.alimjan.news.ui.fragments.NewsListFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:layout="@layout/fragment_news_list" />
 
 </android.support.constraint.ConstraintLayout>

@@ -40,6 +40,8 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     implementation "android.arch.paging:runtime:1.0.1"
 
+    implementation 'com.dinuscxj:recyclerrefreshlayout:2.0.5'
+
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'

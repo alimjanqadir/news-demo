@@ -24,6 +24,7 @@ import com.example.alimjan.news.ui.viewmodels.NewsViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -58,11 +59,9 @@ public class NewsListFragment extends Fragment implements NewsListRecyclerViewAd
         View view = inflater.inflate(R.layout.fragment_news_list, container, false);
 
         // Setup RecyclerView
-        if (view instanceof RecyclerView) {
-            setupRecyclerView((RecyclerView) view);
-        }
+        setupRecyclerView(view);
 
-        NewsViewModel newsViewModel = ViewModelProviders.of(this,new NewsViewModelFactory(getContext())).get(NewsViewModel.class);
+        NewsViewModel newsViewModel = ViewModelProviders.of(this, new NewsViewModelFactory(getContext())).get(NewsViewModel.class);
         newsViewModel.news.observe(this, news -> {
             mAdapter.submitList(news);
         });
@@ -78,7 +77,8 @@ public class NewsListFragment extends Fragment implements NewsListRecyclerViewAd
         service.getLatestNews().enqueue(new NewsRequestCallBack());
     }
 
-    private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
+    private void setupRecyclerView(@NonNull View view) {
+        RecyclerView recyclerView = view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mAdapter = new NewsListRecyclerViewAdapter(this);
         recyclerView.setAdapter(mAdapter);
@@ -86,10 +86,15 @@ public class NewsListFragment extends Fragment implements NewsListRecyclerViewAd
 
     @Override
     public void onNewsClick(News news) {
-        Intent intent = new Intent(getContext(), NewsDetailActivity.class);
-        intent.putExtra(NewsDetailActivity.EXTRA_NEWS_URL, news.getUrl());
-        intent.putExtra(NewsDetailActivity.EXTRA_NEWS_TITLE, news.getNewsTitle());
-        getContext().startActivity(intent);
+        boolean isDoublePane = Objects.requireNonNull(getActivity()).findViewById(R.id.news_detail_fragment) != null;
+        if (isDoublePane) {
+            // if double pane submit event to NewsDetailFragment
+        }else {
+            Intent intent = new Intent(getContext(), NewsDetailActivity.class);
+            intent.putExtra(NewsDetailActivity.EXTRA_NEWS_URL, news.getUrl());
+            intent.putExtra(NewsDetailActivity.EXTRA_NEWS_TITLE, news.getNewsTitle());
+            getContext().startActivity(intent);
+        }
     }
 
 
@@ -100,7 +105,7 @@ public class NewsListFragment extends Fragment implements NewsListRecyclerViewAd
                 List<News> newsList = new ArrayList<>();
                 NewsResponse newsResponse = response.body();
                 for (HitsItem hitsItem : newsResponse.getHits()) {
-                    newsList.add(new News(0,hitsItem.getTitle() != null ? hitsItem.getTitle() : hitsItem.getStoryTitle(), hitsItem.getAuthor(), hitsItem.getCreatedAtI(), hitsItem.getStoryUrl()));
+                    newsList.add(new News(0, hitsItem.getTitle() != null ? hitsItem.getTitle() : hitsItem.getStoryTitle(), hitsItem.getAuthor(), hitsItem.getCreatedAtI(), hitsItem.getStoryUrl()));
                 }
             }
         }
