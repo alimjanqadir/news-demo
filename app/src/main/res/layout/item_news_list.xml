@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="news"
+            type="com.example.alimjan.news.model.News" />
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!--Background view for swipe to delete indication-->
+        <TextView
+            android:id="@+id/background_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#f00"
+            android:gravity="center_vertical|end"
+            android:paddingEnd="24dp"
+            android:paddingStart="24dp"
+            android:text="@string/delete"
+            android:textColor="#fff"
+            android:textSize="18sp" />
+
+        <!--Foreground above the delete indication layout.-->
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/foreground_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/window_background">
+
+            <TextView
+                android:id="@+id/news_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:maxLines="2"
+                android:text="@{news.newsTitle}"
+                android:textColor="@color/text_color_primary"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@tools:sample/lorem/random" />
+
+            <TextView
+                android:id="@+id/author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@{news.author}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/news_title"
+                app:layout_constraintTop_toBottomOf="@+id/news_title"
+                tools:text="@tools:sample/first_names" />
+
+            <TextView
+                android:id="@+id/created_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@{news.createdDate}"
+                app:layout_constraintBaseline_toBaselineOf="@+id/author"
+                app:layout_constraintStart_toEndOf="@+id/author"
+                tools:text="@tools:sample/date/ddmmyy" />
+
+        </android.support.constraint.ConstraintLayout>
+    </FrameLayout>
+</layout>

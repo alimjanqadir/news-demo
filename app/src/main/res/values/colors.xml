@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--IDE generated color for Appcompat theme.-->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="textColorPrimaryDark">#000</color>
+
+    <!--Other colors used through out the project.-->
+    <color name="text_color_primary">#000</color>
+    <color name="window_background">#fff</color>
 </resources>

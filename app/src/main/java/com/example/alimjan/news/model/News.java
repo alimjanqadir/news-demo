@@ -7,11 +7,12 @@ import android.arch.persistence.room.PrimaryKey;
 /**
  * Model class for data binding and room table entity.
  */
+@SuppressWarnings("unused")
 @Entity
 public class News {
 
-    @PrimaryKey
-    private long aid;
+    @PrimaryKey(autoGenerate = true)
+    private long id;
 
     @ColumnInfo(name = "title")
     private String newsTitle;
@@ -25,8 +26,7 @@ public class News {
     @ColumnInfo(name = "url")
     private String url;
 
-    public News(long aid, String newsTitle, String author, String createdDate, String url) {
-        this.aid = aid;
+    public News( String newsTitle, String author, String createdDate, String url) {
         this.newsTitle = newsTitle;
         this.author = author;
         this.createdDate = createdDate;
@@ -65,11 +65,23 @@ public class News {
         this.url = url;
     }
 
-    public long getAid() {
-        return aid;
+    public long getId() {
+        return id;
     }
 
-    public void setAid(long aid) {
-        this.aid = aid;
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "id = '" + id + '\'' +
+                ",newsTitle = '" + newsTitle + '\'' +
+                ",author = '" + author + '\'' +
+                ",createdDate = '" + createdDate + '\'' +
+                ",url = '" + url + '\'' +
+                "}";
     }
 }

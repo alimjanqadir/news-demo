@@ -14,14 +14,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/newsListFragment"
+        <fragment
+            android:id="@+id/news_List_fragment"
             android:name="com.example.alimjan.news.ui.fragments.NewsListFragment"
-            class="com.example.alimjan.news.ui.fragments.NewsListFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             tools:layout="@layout/fragment_news_list" />
     </android.support.v7.widget.CardView>
 
@@ -37,7 +34,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/news_detail_fragment"
         android:name="com.example.alimjan.news.ui.fragments.NewsDetailFragment"
-        class="com.example.alimjan.news.ui.fragments.NewsDetailFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

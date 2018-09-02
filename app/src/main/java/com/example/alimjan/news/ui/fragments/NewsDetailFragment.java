@@ -13,10 +13,7 @@ import com.example.alimjan.news.R;
 
 
 /**
- * A simple Fragment implementation which shows news article in WebView.
- * Activities that contain this fragment must implement the
- * Use the {@link NewsDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * A simple Fragment implementation which shows a web page in a {@link WebView}.
  */
 public class NewsDetailFragment extends Fragment {
 
@@ -62,7 +59,7 @@ public class NewsDetailFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Load the WebView
-        WebView webView = view.findViewById(R.id.webView);
+        WebView webView = view.findViewById(R.id.web_view);
         if (mParamUrl != null) {
             webView.loadUrl(mParamUrl);
         }

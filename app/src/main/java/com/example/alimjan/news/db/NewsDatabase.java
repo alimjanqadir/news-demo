@@ -21,13 +21,19 @@ public abstract class NewsDatabase extends RoomDatabase {
 
     public abstract NewsDao getNewsDao();
 
-    public static NewsDatabase getInMemoryDatabase(Context context) {
+    public static NewsDatabase getInstance(Context context) {
         if (INSTANCE == null) {
-            INSTANCE = Room.inMemoryDatabaseBuilder(context, NewsDatabase.class).build();
+            synchronized (NewsDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context, NewsDatabase.class, "news.db")
+                            .build();
+                }
+            }
         }
         return INSTANCE;
     }
 
+    @SuppressWarnings("unused")
     public static void destroyDatabaseInstance() {
         INSTANCE = null;
     }

@@ -40,14 +40,15 @@ dependencies {
     annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
     implementation "android.arch.paging:runtime:1.0.1"
 
-    implementation 'com.dinuscxj:recyclerrefreshlayout:2.0.5'
-
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.4.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
 
     // Javax annotation for pojo generator
     implementation 'javax.annotation:javax.annotation-api:1.3.2'
+
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+
 
     // Test
     testImplementation 'junit:junit:4.12'

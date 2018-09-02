@@ -7,6 +7,9 @@ import javax.annotation.Generated;
 @Generated("com.robohorse.robopojogenerator")
 public class HitsItem {
 
+    @SerializedName("objectID")
+    private long id;
+
     @SerializedName("author")
     private String author;
 
@@ -24,6 +27,13 @@ public class HitsItem {
     @SerializedName("story_url")
     private String storyUrl;
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
 
     public void setAuthor(String author) {
         this.author = author;

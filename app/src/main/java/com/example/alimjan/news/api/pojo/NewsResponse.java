@@ -1,5 +1,6 @@
 package com.example.alimjan.news.api.pojo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Generated;
@@ -10,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 public class NewsResponse {
 
     @SerializedName("hits")
-    private List<HitsItem> hits;
+    private List<HitsItem> hits = new ArrayList<>();
 
     @SerializedName("page")
     private int page;

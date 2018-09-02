@@ -5,12 +5,17 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.example.alimjan.news.api.ServiceGenerator;
+import com.example.alimjan.news.api.service.HackNewsService;
 import com.example.alimjan.news.data.NewsRepository;
 import com.example.alimjan.news.db.NewsCache;
 import com.example.alimjan.news.db.NewsDatabase;
 
 import java.util.concurrent.Executors;
 
+/**
+ * Factory class for ViewModel instantiation.
+ */
 public class NewsViewModelFactory implements ViewModelProvider.Factory {
 
     private final Context mContext;
@@ -23,11 +28,13 @@ public class NewsViewModelFactory implements ViewModelProvider.Factory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(NewsViewModel.class)) {
-            NewsDatabase database = NewsDatabase.getInMemoryDatabase(this.mContext);
+            // Necessary dependencies prepared to NewsRepository.
+            NewsDatabase database = NewsDatabase.getInstance(this.mContext);
             NewsCache cache = new NewsCache(database.getNewsDao(), Executors.newSingleThreadExecutor());
-            NewsRepository newsRepository = new NewsRepository(cache);
+            HackNewsService service = ServiceGenerator.createService(HackNewsService.class);
 
-            return (T) new NewsViewModel(newsRepository);
+            //noinspection unchecked
+            return (T) new NewsViewModel(new NewsRepository(cache, service));
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }
