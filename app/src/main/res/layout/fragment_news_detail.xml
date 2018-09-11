@@ -1,5 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WebView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/web_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.example.alimjan.news.api.NetworkState" />
+
+        <variable
+            name="networkState"
+            type="com.example.alimjan.news.api.NetworkState" />
+
+        <variable
+            name="onRetryListener"
+            type="com.example.alimjan.news.ui.callbacks.OnRetryListener" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scroll_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <WebView
+                android:id="@+id/web_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:isScrollContainer="false"
+                android:visibility="@{networkState.getStatus() == NetworkState.State.SUCCESS ? View.VISIBLE : View.GONE}" />
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <include
+            layout="@layout/layout_network_states"
+            app:networkState="@{networkState}"
+            app:onRetryListener="@{onRetryListener}" />
+    </FrameLayout>
+</layout>
+

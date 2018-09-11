@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName;
 public class NewsResponse {
 
     @SerializedName("hits")
-    private List<HitsItem> hits = new ArrayList<>();
+    private List<Hit> hits = new ArrayList<>();
 
     @SerializedName("page")
     private int page;
@@ -23,11 +23,11 @@ public class NewsResponse {
     private int nbPages;
 
 
-    public void setHits(List<HitsItem> hits) {
+    public void setHits(List<Hit> hits) {
         this.hits = hits;
     }
 
-    public List<HitsItem> getHits() {
+    public List<Hit> getHits() {
         return hits;
     }
 

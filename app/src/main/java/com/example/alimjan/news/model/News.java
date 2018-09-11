@@ -3,16 +3,21 @@ package com.example.alimjan.news.model;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
- * Model class for data binding and room table entity.
+ * Model class that represents a news, could be seen as integral part of this application.
  */
 @SuppressWarnings("unused")
 @Entity
-public class News {
+public class News implements Parcelable {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private long id;
+
+    @ColumnInfo(name = "object_id")
+    private long objectId;
 
     @ColumnInfo(name = "title")
     private String newsTitle;
@@ -26,11 +31,54 @@ public class News {
     @ColumnInfo(name = "url")
     private String url;
 
-    public News( String newsTitle, String author, String createdDate, String url) {
+    @ColumnInfo(name = "isInTrash")
+    private int isInTrash;
+
+    public static final Creator<News> CREATOR = new Creator<News>() {
+        @Override
+        public News createFromParcel(Parcel in) {
+            return new News(in);
+        }
+
+        @Override
+        public News[] newArray(int size) {
+            return new News[size];
+        }
+    };
+
+    public News(long objectId, String newsTitle, String author, String createdDate, String url) {
+        this.id = objectId;
+        this.objectId = objectId;
         this.newsTitle = newsTitle;
         this.author = author;
         this.createdDate = createdDate;
         this.url = url;
+    }
+
+    protected News(Parcel in) {
+        id = in.readLong();
+        objectId = in.readLong();
+        newsTitle = in.readString();
+        author = in.readString();
+        createdDate = in.readString();
+        url = in.readString();
+        isInTrash = in.readInt();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(long objectId) {
+        this.objectId = objectId;
     }
 
     public String getNewsTitle() {
@@ -65,14 +113,29 @@ public class News {
         this.url = url;
     }
 
-    public long getId() {
-        return id;
+    public void setIsInTrash(int isInTrash) {
+        this.isInTrash = isInTrash;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public int getIsInTrash() {
+        return this.isInTrash;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(id);
+        dest.writeLong(objectId);
+        dest.writeString(newsTitle);
+        dest.writeString(author);
+        dest.writeString(createdDate);
+        dest.writeString(url);
+        dest.writeInt(isInTrash);
+    }
 
     @Override
     public String toString() {
@@ -82,6 +145,7 @@ public class News {
                 ",author = '" + author + '\'' +
                 ",createdDate = '" + createdDate + '\'' +
                 ",url = '" + url + '\'' +
+                ",isInTrash = '" + isInTrash + '\'' +
                 "}";
     }
 }

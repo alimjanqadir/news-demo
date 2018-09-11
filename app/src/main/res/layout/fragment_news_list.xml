@@ -1,17 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/refresh_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/list"
-        android:name="com.example.alimjan.newsdemo.fragments.NewsFragment"
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="com.example.alimjan.news.api.NetworkState" />
+
+        <variable
+            name="networkState"
+            type="com.example.alimjan.news.api.NetworkState" />
+
+        <variable
+            name="onRetryListener"
+            type="com.example.alimjan.news.ui.callbacks.OnRetryListener" />
+    </data>
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:context=".ui.fragments.NewsListFragment"
-        tools:listitem="@layout/item_news_list" />
-</com.scwang.smartrefresh.layout.SmartRefreshLayout>
+        android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.scwang.smartrefresh.header.MaterialHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list"
+                android:name="com.example.alimjan.newsdemo.fragments.NewsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                tools:context=".ui.fragments.NewsListFragment"
+                tools:listitem="@layout/item_news_list" />
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        <include
+            layout="@layout/layout_network_states"
+            app:networkState="@{networkState}"
+            app:onRetryListener="@{onRetryListener}" />
+    </FrameLayout>
+</layout>

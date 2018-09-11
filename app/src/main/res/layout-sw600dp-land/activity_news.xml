@@ -3,44 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="25dp">
 
-
-    <android.support.v7.widget.CardView
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <fragment
-            android:id="@+id/news_List_fragment"
-            android:name="com.example.alimjan.news.ui.fragments.NewsListFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout="@layout/fragment_news_list" />
-    </android.support.v7.widget.CardView>
-
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="0dp"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="360dp" />
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/AppTheme.Widget.Toolbar"
+        app:title="@string/hacker_news"
+        app:titleTextAppearance="@style/AppTheme.TextAppearance.Widget.Toolbar" />
 
-    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/news_detail_fragment"
-        android:name="com.example.alimjan.news.ui.fragments.NewsDetailFragment"
+    <fragment
+        android:id="@+id/news_list_fragment"
+        android:name="com.example.alimjan.news.ui.fragments.NewsListFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/news_detail_fragment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:layout="@layout/fragment_news_list" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="1dp"
+        android:layout_height="0dp"
+        android:background="#000"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="360dp" />
+
+    <fragment
+        android:id="@+id/news_detail_fragment"
+        android:name="com.example.alimjan.news.ui.fragments.NewsDetailFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:layout="@layout/fragment_news_detail" />
-
 
 </android.support.constraint.ConstraintLayout>

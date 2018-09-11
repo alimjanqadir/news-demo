@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--IDE generated color for Appcompat theme.-->
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!--Colors from material color palette-->
+    <color name="primaryColor">#ff6600</color>
+    <color name="primaryLightColor">#ff983f</color>
+    <color name="primaryDarkColor">#c43300</color>
+    <color name="secondaryColor">#f6f6ef</color>
+    <color name="secondaryLightColor">#ffffff</color>
+    <color name="secondaryDarkColor">#c3c3bd</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#828282</color>
 
-    <!--Other colors used through out the project.-->
-    <color name="text_color_primary">#000</color>
-    <color name="window_background">#fff</color>
+    <!--other colors-->
+    <color name="white">#fff</color>
+    <color name="swipe_delete_background">#ff1744</color>
+    <color name="lightGrey">#e1e1e1</color>
 </resources>
