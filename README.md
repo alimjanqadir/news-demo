@@ -54,11 +54,11 @@ causing data source to change, there are many types of requests like refresh dat
 delete, data handling varies depends on each request type, this is achieved by creating a flag 
 to each type of request.
  
- ```
+ ```java
       private void handleData(@NonNull List<News> news) {
           // ... some code is ignored
   
-          // data handled by request flag
+          // data handled differently depends on flag type
           if (mRefreshRequestFlag) {
               mRefreshRequestFlag = false;
               mAdapter.setData(news);
@@ -69,7 +69,7 @@ to each type of request.
           } else {
               // ... some code is ignored
   
-              // if request is not refresh nor load more then it would be initial data from database.
+              // if request is not refresh or load more then it would be initial data from database.
               mAdapter.setData(news);
               if (isRequestResultEmpty()) {
                   refresh();
@@ -87,7 +87,7 @@ WebViewClient onReceiveError callback can be fired and the user see error messag
 already shown. This is weired and confuses the user so I declare a flag which indicates page already
 visible or not if page visible error message would not be shown.
 
-```
+```java
     @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 super.onReceivedError(view, errorCode, description, failingUrl);
@@ -127,13 +127,16 @@ Minimum SDK Version: 22
     * [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
     * [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
     * [Test](https://developer.android.com/topic/libraries/testing-support-library/index.html)
+* [SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout)
 * [Retrofit](https://github.com/square/retrofit)
 * [Rxjava](https://github.com/reactivex/rxjava)
 * Javax Annotation Library (for pojo generator)
 
 
 ## Contact
+
 Author: Alimjan Qadir
+
 Email: alimjanqadir@qq.com
 
 
