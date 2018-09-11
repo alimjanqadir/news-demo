@@ -12,7 +12,11 @@
         android:layout_height="wrap_content"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/AppTheme.Widget.Toolbar"
+        app:layout_scrollFlags="scroll|enterAlways"
         app:title="@string/hacker_news"
+        app:logo="@drawable/ic_actionbar_logo"
+        app:titleMarginBottom="18dp"
+        app:titleMarginStart="20dp"
         app:titleTextAppearance="@style/AppTheme.TextAppearance.Widget.Toolbar" />
 
     <fragment
