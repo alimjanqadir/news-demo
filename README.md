@@ -10,7 +10,7 @@ which is robust, maintainable and easy to test. To achieve offline-supported dat
 model a repository created as single source of truth. The repository class has a direct relationship 
 with viewmodel and deliver received data via LiveData observer.
 
-![app architecture](https://developer.android.com/topic/libraries/architecture/images/final-architecture.png)
+![app architecture](https://developer.android.google.cn/topic/libraries/architecture/images/final-architecture.png)
 
 ## Getting Started
 
@@ -138,6 +138,5 @@ Minimum SDK Version: 22
 Author: Alimjan Qadir
 
 Email: alimjanqadir@qq.com
-
 
 
